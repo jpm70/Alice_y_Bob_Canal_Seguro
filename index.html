@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice y Bob: Canal Seguro - Podcast</title>
+    <style>
+        /* Aplicando los cambios de CSS recordados (Estilo HackSandbox/Oscuro) */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #0d1117; /* Fondo oscuro de tus CSS anteriores */
+            color: #c9d1d9;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor Lateral (Sidebar) */
+        #sidebar {
+            width: 350px;
+            background-color: #161b22; /* Color de container de tus CSS */
+            border-right: 1px solid #30363d;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 2px solid #30363d;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            color: #58a6ff; /* Azul característico de tus retos */
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        #playlist-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Estilo de los enlaces/botones similar a .challenge-link */
+        .video-item {
+            background-color: #21262d;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-item:hover {
+            background-color: #2d333b;
+            transform: translateX(5px);
+            border-color: #58a6ff;
+        }
+
+        .video-item::before {
+            content: "▶";
+            margin-right: 12px;
+            color: #58a6ff;
+        }
+
+        /* Área Principal del Reproductor */
+        #main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background-color: #0d1117;
+        }
+
+        .player-wrapper {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid #30363d;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <div class="sidebar-header">
+        <h2>Alice y Bob: Canal Seguro</h2>
+        <p style="font-size: 0.8rem; color: #8b949e;">Selecciona un episodio</p>
+    </div>
+    <div id="playlist-items">
+        <div class="video-item" onclick="playIndex(0)">Episodio 1 (Reciente)</div>
+        <div class="video-item" onclick="playIndex(1)">Episodio 2</div>
+        <div class="video-item" onclick="playIndex(2)">Episodio 3</div>
+        <div class="video-item" onclick="playIndex(3)">Episodio 4</div>
+        <div class="video-item" onclick="playIndex(4)">Episodio 5</div>
+        <p style="padding: 10px; font-size: 0.75rem; color: #8b949e; text-align: center;">
+            Cargando el resto de la lista en el reproductor...
+        </p>
+    </div>
+</div>
+
+<div id="main-content">
+    <div class="player-wrapper">
+        <div id="player"></div>
+    </div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+    // ID de tu lista de reproducción proporcionada
+    const PLAYLIST_ID = 'PL7bWjvwgAPGQhbgVwr9sBgBWI93sqBa86';
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            playerVars: {
+                listType: 'playlist',
+                list: PLAYLIST_ID,
+                autoplay: 0,
+                modestbranding: 1,
+                rel: 0
+            }
+        });
+    }
+
+    function playIndex(index) {
+        if (player && player.playVideoAt) {
+            player.playVideoAt(index);
+        }
+    }
+</script>
+
+</body>
+</html>
